@@ -14,16 +14,16 @@ def use_standard_ports():
 
 #Given an IP and port scan whether the connection is successful
 def tcpPortScan(host,port,openPort):
-    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  # 创建套接字
-    sock.settimeout(0.5)            # 设置延时时间
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  
+    sock.settimeout(0.5)            
     
     try:
         sock.connect((host, port))
     except socket.error:
         pass
     else:
-        openPort.append(port)   # 如果端口开放，就把端口port赋给openPort
-    sock.close()                    # 关闭套接字
+        openPort.append(port)   
+    sock.close()                    
 
 
 # Multi-threaded scanning function
@@ -41,7 +41,7 @@ def threadingPortScan(host,port,openPorts = []):
  
     for i in nloops:
         threads[i].join()
-    return openPorts                       # 返回值为该域名下开放的端口列表
+    return openPorts                       
 
     
 # Custom port number scanning function
@@ -62,7 +62,7 @@ def use_custom_port():
             output.insert(tk.INSERT,
                       f"[Host] --> {host}\n[Port] {i} --> [OPEN]\n\n")
             output.see(tk.END)
-    output.insert(tk.INSERT,"扫描结束\n\n")
+    output.insert(tk.INSERT,"Scan End\n\n")
 
 
 # Custom IP address segment scanning function
@@ -88,7 +88,7 @@ def use_custom_port2():
                 output.insert(tk.INSERT,
                       f"[Host] --> {host[j]}\n[Port] {i} --> [OPEN]\n\n")
                 output.see(tk.END)
-    output.insert(tk.INSERT,"扫描结束\n\n")
+    output.insert(tk.INSERT,"Scan End\n\n")
 
 def do_selection():
     if rvar.get() == 0:
@@ -116,7 +116,7 @@ def fast_scan():
     label_host_input.place(x=10, y=7)
     label_host_input.config(bg="LightGrey", font=('', 12))
 
-    scan_btn = tk.Button(fs, text="扫描", command=fs.destroy, width=18)
+    scan_btn = tk.Button(fs, text="Scan", command=fs.destroy, width=18)
     scan_btn.place(x=10, y=60)
     scan_btn.config(bg="LightGrey", font=('', 9))
 
@@ -155,7 +155,7 @@ def special_scan():
     entry_port2 = tk.Entry(ss, textvariable=ss_port_number2, width=7)
     entry_port2.place(x=400, y=35)
 
-    scan_btn = tk.Button(ss, text="扫描", width=22, command=ss.destroy)
+    scan_btn = tk.Button(ss, text="Scan", width=22, command=ss.destroy)
     scan_btn.place(x=7, y=65)
     scan_btn.config(bg="LightGrey", font=('', 9))
 
@@ -184,7 +184,7 @@ def special_scan2():
     entry_host.focus()
     entry_host.place(x=152, y=35)
 
-    scan_btn = tk.Button(ss, text="扫描", width=22, command=ss.destroy)
+    scan_btn = tk.Button(ss, text="Scan", width=22, command=ss.destroy)
     scan_btn.place(x=7, y=65)
     scan_btn.config(bg="LightGrey", font=('', 9))
 
@@ -197,7 +197,7 @@ def special_scan2():
 ######################
 
 root = tk.Tk(None)
-root.title("端口扫描器")
+root.title("Port Scanner")
 root.geometry("560x400+420+300")
 root.resizable(width=False, height=False)
 root.config(bg="LightGrey")
@@ -215,39 +215,39 @@ rvar = tk.IntVar()
 rvar.set(0)
 
 # Local button
-fast_scan_rbtn = tk.Radiobutton(root, text="快速扫描",
+fast_scan_rbtn = tk.Radiobutton(root, text="QuickScan",
                                 variable=rvar, value=0)
 fast_scan_rbtn.place(x=10, y=35)
 fast_scan_rbtn.config(bg="LightGrey", font=('', 10))
 
-special_scan_rbtn = tk.Radiobutton(root, text="自定义端口扫描",
+special_scan_rbtn = tk.Radiobutton(root, text="CustomPortScan",
                                    variable=rvar, value=1)
 special_scan_rbtn.place(x=10, y=60)
 special_scan_rbtn.config(bg="LightGrey", font=('', 10))
 
-special_scan_rbtn = tk.Radiobutton(root, text="自定义地址段扫描",
+special_scan_rbtn = tk.Radiobutton(root, text="CustomIPScan",
                                    variable=rvar, value=2)
 special_scan_rbtn.place(x=10, y=85)
 special_scan_rbtn.config(bg="LightGrey", font=('', 10))
 
-select_btn = tk.Button(root, text="选择",
+select_btn = tk.Button(root, text="Select",
                        command=do_selection, width=12)
 select_btn.place(x=15, y=130)
 select_btn.config(bg="LightGrey", font=('', 10))
 
-clear_btn = tk.Button(root, text="清屏",
+clear_btn = tk.Button(root, text="Claer",
                       command=lambda: output.delete('1.0', tk.END))
 clear_btn.place(x=15, y=175)
 clear_btn.config(bg="LightGrey", font=('', 10), width=12)
 
-exit_btn = tk.Button(root, text="退出", command=root.quit)
+exit_btn = tk.Button(root, text="Quit", command=root.quit)
 exit_btn.place(x=28, y=223)
 exit_btn.config(bg="LightGrey", font=('', 10),  width=9)
 
 output = tk.Text(root, width=39, height=24, state='normal')
 output.place(x=140, y=15)
 
-scan_type_label = tk.Label(root, text="选择扫描类型:")
+scan_type_label = tk.Label(root, text="Select scan type:")
 scan_type_label.place(x=10, y=10)
 scan_type_label.config(bg="LightGrey", font=('', 10))
 
